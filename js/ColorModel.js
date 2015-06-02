@@ -1,3 +1,4 @@
+'use strict';
 /**
  * A model that takes Hex and RGB colors and can convert 
  * those colors to either hex or rgb format.
@@ -20,8 +21,10 @@ var ColorModel = Backbone.Model.extend({
 	/**
 	 * Creates a new ColorModel instance.
 	 */
-	initialize: function(){
-		this.set('hex', '#FFFFFF');
+	initialize: function(attrs){
+		if (!attrs) {
+			this.set('hex', '#FFFFFF');
+		}
 	},
 
 	/**
@@ -54,6 +57,11 @@ var ColorModel = Backbone.Model.extend({
 		if (!value){
 			return
 		}
+
+		// Check that hex value is correct number of characters
+		// Check that rgb is a value between 0 and 255
+		// Logic for 3 character Hex
+		// 
 		
 		if (name === 'hex') {
 			// Uses the Backbone.Model set method to set the hex value.
@@ -114,3 +122,54 @@ var ColorModel = Backbone.Model.extend({
 		return '#' + redValue + greenValue + blueValue;
 	}
 })
+
+
+// var color1 = new ColorModel();
+// var color2 = new ColorModel();
+
+// color1.set('hex', '#A55DE8');
+// color2.set('hex', '#5D9EE8');
+
+var getAverageColor = function(color1, color2){
+	var rgb1 = color1.get('rgb');
+	var rgb2 = color2.get('rgb');
+
+	var midRGB = {
+		red: (rgb1.red + rgb2.red)/2,
+		green: (rgb1.green + rgb2.green)/2,
+		blue: (rgb1.blue + rgb2.blue)/2
+	};
+
+	var averageColor = new ColorModel();
+	averageColor.set('rgb', midRGB);
+
+	return averageColor;
+}
+
+
+// var createColors = function(){
+// 	// alert('i work!');
+// 	var firstColor = document.querySelector('#color1-input').value;
+// 	var secondColor = document.querySelector('#color2-input').value;
+
+// 	var color1 = new ColorModel();
+// 	var color2 = new ColorModel();
+
+// 	color1.set('hex', firstColor);
+// 	color2.set('hex', secondColor)
+
+// 	var color3 = getAverageColor(color1,color2);
+
+// 	var gradient1 = document.querySelector('#color1');
+// 	var gradient2 = document.querySelector('#color2');
+// 	var gradient3 = document.querySelector('#color3');
+
+// 	gradient1.style.backgroundColor=color1.get('hex');
+// 	gradient2.style.backgroundColor=color2.get('hex');
+// 	gradient3.style.backgroundColor=color3.get('hex');
+// }
+
+// var submit = document.querySelector('button');
+// submit.addEventListener('click', createColors);
+
+

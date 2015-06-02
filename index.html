@@ -3,16 +3,13 @@
 <head>
 	<title>Colors!</title>
 	<style>
-		.container{
-			width: 300px;
-			margin: 20px auto;
-		}
 		input{
 			display: block;
 			padding: 5px;
 			margin: 5px 0;
 		}
 		button{
+			display: block;
 			padding: 5px;
 			margin: 5px 0;
 			background-color: #0bc;
@@ -22,13 +19,26 @@
 			background-color: #0aa;
 		}
 
-		.color {
+		.color-test {
+			display: inline-block;
 			height: 200px;
 			width: 200px;
 			border: 2px solid #000;
 			margin-top: 10px;
+			margin-bottom: 10px;
 			border-radius: 200px;
 		}
+		#color_display {
+			/*width: 600px;*/
+			clear: both;
+		}
+		.color {
+			display: block;
+			height: 200px;
+			border: none;
+			float: left;
+		}
+
 
 	</style>
 	<script type="text/javascript" src="js/jquery-git2.min.js"></script>
@@ -36,15 +46,39 @@
 	<script type="text/javascript" src="js/backbone-min.js"></script>
 </head>
 <body>
-<div class="container">
-	<input id="redInput" type="text" placeholder="red"/>
-	<input id="greenInput" type="text" placeholder="green"/>
-	<input id="blueInput" type="text" placeholder="blue"/>
+
+<!-- 	<p>Color 1</p>
+	<input id="color1-input" type="text" placeholder="rgb or hex"/>
+	<p>Color 2</p>
+	<input id="color2-input" type="text" placeholder="rgb or hex"/>
 	<button>Submit!</button>
-	<div class="color"></div>
+<div class="container">
+	<div id="color1" class="color-test"></div>
+	<div id="color3" class="color-test"></div>
+	<div id="color2" class="color-test"></div>
+</div> -->
+
+<div id="color_display">
 </div>
 
 <script type="text/javascript" src="js/ColorModel.js"></script>
+<script type="text/javascript" src="js/ColorCollectionView.js"></script>
+<script type="text/javascript">
 
+
+	var color1 = new ColorModel({hex: '#516FF0'});
+	var color2 = new ColorModel({hex: '#F0D251'});
+	var color3 = new ColorModel({hex: '#D551F0'});
+
+	var colorCollection = new Backbone.Collection([color1, color2, color3]);
+
+	var rootElement = document.querySelector("#color_display");
+	var colorCollectionView = new ColorCollectionView({
+		el: rootElement,
+		collection: colorCollection
+	});
+
+	colorCollectionView.render();
+</script>
 </body>
 </html>
